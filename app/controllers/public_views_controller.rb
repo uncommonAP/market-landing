@@ -1,3 +1,2 @@
 class PublicViewsController < ApplicationController
-  
 end
