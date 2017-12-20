@@ -15,7 +15,6 @@ class SiteContent extends Component {
   render() {
     return(
       <div>
-        <h1>Welcome! ConnectAfrica.io coming soon...</h1>
         <NavBar/>
         <Switch>
           <Route strict path='/about/' component={About} />
@@ -23,6 +22,7 @@ class SiteContent extends Component {
           <Route strict path='/members/' component={Members} />
           <Route strict path='/contact-us/' component={ContactUs} />
         </Switch>
+        <div id='survey-button' />
       </div>
     )
   }
