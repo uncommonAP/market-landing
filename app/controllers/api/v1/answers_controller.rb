@@ -1,4 +1,6 @@
 class Api::V1::AnswersController < ApplicationController
+  protect_from_forgery unless: -> { request.format.json? }
+  
   def create
     answer = Answer.new(answer_params)
     if answer.save

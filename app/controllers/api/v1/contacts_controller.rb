@@ -1,4 +1,6 @@
 class Api::V1::ContactsController < ApplicationController
+  protect_from_forgery unless: -> { request.format.json? }
+  
   def index
     contacts = Contact.all
     render json: {contacts: contacts}
