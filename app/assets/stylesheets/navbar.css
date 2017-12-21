@@ -1,9 +1,13 @@
+body {
+  background-color: #FFBC60;
+}
+
 h1 {
   text-align: center;
 }
 
 .navbar {
-  background: url("africa-laylines.jpg"), linear-gradient(155deg, #D97900, #0054EA 55%, #00003C 75%);
+  background: url("africa-laylines.jpg"), linear-gradient(165deg, #BF9FA7 15%, #FFA506 23%, #0054EA 40%, #00003C 60%);
   background-repeat: no-repeat, no-repeat;
   background-size: 300px, cover;
   display: flex;
