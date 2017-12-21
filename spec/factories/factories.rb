@@ -6,9 +6,18 @@ FactoryBot.define do
 
   factory :question do
     question_body Faker::Lorem.sentence(5)
+
+    factory :question_with_answers do
+      after(:create) do |question|
+        15.times do
+          create(:answer, question: question)
+        end
+      end
+    end
   end
 
+
   factory :answer do
-    importance_value Random.rand(1..5)
+    importance_value Random.rand(0..5)
   end
 end
