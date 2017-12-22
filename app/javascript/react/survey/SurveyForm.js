@@ -61,7 +61,7 @@ class SurveyFormContainer extends Component {
         <Switch>
           <Route strict path={`${this.props.match.path}questions/`} component={SurveyQuestions} />
           <div className='survey'>
-            <h1>Thank you for taking our survey!</h1>
+            <h1>Thank you for choosing to take our survey!</h1>
             <hr />
             <div>
               <strong>Please Select Your Country: </strong>
