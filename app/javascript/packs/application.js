@@ -7,13 +7,15 @@ import thunkMiddleware from 'redux-thunk'
 import LandingPage from '../react/LandingPage'
 import currentQuestion from '../react/survey/reducers/currentQuestion'
 import answers from '../react/survey/reducers/answers'
+import survey from '../react/survey/reducers/survey'
 
 const middlewares = [thunkMiddleware]
 
 const store = createStore(
   combineReducers({
     currentQuestion,
-    answers
+    answers,
+    survey
   }),
   applyMiddleware(...middlewares)
 )
