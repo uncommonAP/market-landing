@@ -1,6 +1,7 @@
 export const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
 export const FETCH_QUESTIONS_SUCCESS = 'FETCH_QUESTIONS_SUCCESS'
 export const SET_QUESTION_AS_CURRENT = 'SET_QUESTION_AS_CURRENT'
+export const LAST_QUESTION = 'LAST_QUESTION'
 
 let fetchQuestions = () => {
   return {
@@ -22,6 +23,12 @@ let setQuestionAsCurrent = question => {
   }
 }
 
+let lastQuestion = () => {
+  return {
+    type: LAST_QUESTION
+  }
+}
+
 let getQuestions = () => dispatch => {
   dispatch(fetchQuestions())
   return fetch('/api/v1/questions.json', {
@@ -37,6 +44,9 @@ let getQuestions = () => dispatch => {
 let setCurrentQuestion = questions => dispatch => {
   let currentQuestion = questions.shift()
   dispatch(setQuestionAsCurrent(currentQuestion))
+  if (questions.length === 1) {
+    dispatch(lastQuestion())
+  }
 }
 
 export {
