@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :contacts, only: [:index, :create]
       resources :questions, only: [:index]
       resources :answers, only: [:create]
+      resources :surveys, only: [:create]
     end
   end
 
