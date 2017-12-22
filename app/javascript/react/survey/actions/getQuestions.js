@@ -42,11 +42,11 @@ let getQuestions = () => dispatch => {
 }
 
 let setCurrentQuestion = questions => dispatch => {
-  let currentQuestion = questions.shift()
-  dispatch(setQuestionAsCurrent(currentQuestion))
   if (questions.length === 1) {
     dispatch(lastQuestion())
   }
+  let currentQuestion = questions.shift()
+  dispatch(setQuestionAsCurrent(currentQuestion))
 }
 
 export {
