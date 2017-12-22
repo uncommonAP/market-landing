@@ -9,11 +9,17 @@ FactoryBot.define do
 
     factory :question_with_answers do
       after(:create) do |question|
+        survey = create(:survey)
         15.times do
-          create(:answer, question: question)
+          create(:answer, question: question, survey_id: survey.id)
         end
       end
     end
+  end
+
+  factory :survey do
+    country "United States"
+    region "Massachusetts"
   end
 
 
