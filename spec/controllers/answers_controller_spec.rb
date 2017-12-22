@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::AnswersController, type: :controller do
   let!(:question) { FactoryBot.create(:question) }
-  let!(:answer) {{ answer: { question_id: question.id, importance_value: Random.rand(0..5) }}}
+  let!(:survey) { FactoryBot.create(:survey) }
+  let!(:answer) {{ answer: { question_id: question.id, importance_value: Random.rand(0..5), survey_id: survey.id }}}
 
   describe 'answers#create' do
     it "returns a status of 200" do

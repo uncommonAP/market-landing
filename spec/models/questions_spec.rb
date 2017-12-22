@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   let!(:question) { FactoryBot.create(:question) }
-  let!(:answers) { create_list(:answer, 4, question_id: question.id) }
+  let!(:survey) { FactoryBot.create(:survey)}
+  let!(:answers) { create_list(:answer, 4, question_id: question.id, survey_id: survey.id) }
 
   describe 'a question' do
     it "is a Question" do
@@ -21,6 +22,11 @@ RSpec.describe Question, type: :model do
       expect(question).to have_many(:answers)
       expect(question.answers.length).to eq(4)
       expect(question.answers).to eq(answers)
+    end
+
+    it "has many surveys through answers" do
+      expect(question).to have_many(:surveys).through(:answers)
+      expect(question.surveys).to include(survey)
     end
   end
 

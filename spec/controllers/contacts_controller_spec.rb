@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ContactsController, type: :controller do
   let!(:contacts) { create_list(:contact, 15)}
-  let!(:questions) { create_list(:question_with_answers, 10)}
+  let!(:questions) { create_list(:question_with_answers, 10) }
   let!(:unsaved_contact) {{ contact: { name: Faker::Name.name, email: Faker::Internet.email }}}
 
   describe 'contacts#index' do

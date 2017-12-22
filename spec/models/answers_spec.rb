@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
   let!(:question) { FactoryBot.create(:question) }
-  let!(:answer) { FactoryBot.create(:answer, question_id: question.id) }
+  let!(:survey) { FactoryBot.create(:survey) }
+  let!(:answer) { FactoryBot.create(:answer, question_id: question.id, survey_id: survey.id) }
 
   describe 'answer' do
     it "is an Answer" do
@@ -14,6 +15,10 @@ RSpec.describe Answer, type: :model do
     it "belongs to a question" do
       expect(answer).to belong_to(:question)
       expect(answer.question).to eq(question)
+    end
+
+    it "belongs to a survey" do
+      expect(answer).to belong_to(:survey)
     end
   end
 
