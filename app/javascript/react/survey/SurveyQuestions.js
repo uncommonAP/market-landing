@@ -10,7 +10,8 @@ const mapStateToProps = state => {
     questionsPopulated: state.currentQuestion.questionsPopulated,
     answeredQuestions: state.answers.answeredQuestions.length,
     unansweredQuestions: state.currentQuestion.unansweredQuestions,
-    lastQuestion: state.currentQuestion.lastQuestion
+    lastQuestion: state.currentQuestion.lastQuestion,
+    currentSurveyId: state.survey.currentSurveyId
   }
 }
 
@@ -37,6 +38,9 @@ class SurveyQuestionsContainer extends Component {
 
   componentWillMount() {
     this.props.getQuestions()
+    if (!this.props.currentSurveyId) {
+      this.props.history.push('/survey/')
+    }
   }
 
   handleSelect(event) {
@@ -55,7 +59,7 @@ class SurveyQuestionsContainer extends Component {
   }
 
   createPayload() {
-    let payload = { question_id: this.props.currentQuestion.id, importance_value: this.state.selectedValue }
+    let payload = { question_id: this.props.currentQuestion.id, importance_value: this.state.selectedValue, survey_id: this.props.currentSurveyId }
     return payload
   }
 
