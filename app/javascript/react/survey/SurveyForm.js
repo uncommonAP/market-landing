@@ -2,17 +2,18 @@ import React, { Component } from 'react'
 import { Switch, Route, Navlink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector'
+import { createSurvey } from './actions/createSurvey'
 import SurveyQuestions from './SurveyQuestions'
 
 const mapStateToProps = state => {
   return {
-    
+    currentSurveyId: state.survey.currentSurveyId
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    createSurvey: (surveyPayload) => { dispatch(createSurvey(surveyPayload)) }
   }
 }
 
@@ -22,10 +23,19 @@ class SurveyFormContainer extends Component {
     this.state = {
       country: '',
       region: '',
-      formComplete: false
+      formComplete: false,
+      updateCount: 0
     }
     this.handleCountry = this.handleCountry.bind(this)
     this.handleRegion = this.handleRegion.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  componentDidUpdate() {
+    if (this.props.currentSurveyId && this.state.updateCount === 0) {
+      this.setState({ updateCount: 1 })
+      this.props.history.push(`${this.props.match.path}questions/`)
+    }
   }
 
   handleCountry(event) {
@@ -36,15 +46,20 @@ class SurveyFormContainer extends Component {
     this.setState({ region: event, formComplete: true })
   }
 
+  handleClick() {
+    let surveyPayload = { country: this.state.country, region: this.state.region }
+    this.props.createSurvey(surveyPayload)
+  }
+
   render() {
     let continueButton
     if (this.state.formComplete) {
-      continueButton = <button>Continue!</button>
+      continueButton = <button onClick={this.handleClick}>Continue!</button>
     }
     return(
       <div>
         <Switch>
-          <Route strict path={`${this.props.match.path}questions`} component={SurveyQuestions} />
+          <Route strict path={`${this.props.match.path}questions/`} component={SurveyQuestions} />
           <div className='survey'>
             <h1>Thank you for taking our survey!</h1>
             <hr />
@@ -75,4 +90,4 @@ class SurveyFormContainer extends Component {
 
 const SurveyForm = connect(mapStateToProps, mapDispatchToProps)(SurveyFormContainer)
 
-export default SurveyFormContainer
+export default SurveyForm
