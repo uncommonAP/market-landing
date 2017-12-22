@@ -1,8 +1,12 @@
 import React from 'react'
+import SurveyPlug from './SurveyPlug'
 
 const Mission = props => {
   return(
-    <div>Mission</div>
+    <div>
+      <div>Mission</div>
+      <SurveyPlug/>
+    </div>
   )
 }
 
