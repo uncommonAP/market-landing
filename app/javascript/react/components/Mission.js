@@ -4,7 +4,7 @@ import SurveyPlug from './SurveyPlug'
 const Mission = props => {
   return(
     <div>
-      <div>Mission</div>
+      <div><h1>Mission</h1></div>
       <SurveyPlug/>
     </div>
   )

@@ -4,7 +4,7 @@ import SurveyPlug from './SurveyPlug'
 const Members = props => {
   return(
     <div>
-      <div>Members</div>
+      <div><h1>Members</h1></div>
       <SurveyPlug />
     </div>
   )
