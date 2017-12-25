@@ -25,7 +25,10 @@ class SiteContent extends Component {
             <Route strict path='/members/' component={Members} />
             <Route strict path='/survey/' component={SurveyForm} />
             <Route strict path='/contact-us/' component={ContactUs} />
-            <SurveyPlug/>
+            <div>
+              <h1>Home</h1>
+              <SurveyPlug/>
+            </div>
           </Switch>
         </div>
       </div>

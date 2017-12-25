@@ -47,14 +47,16 @@ class ContactUsContainer extends Component {
     return(
       <div>
         <h1>Contact Us</h1>
-        <form>
-          <label id='name'>Name:
+        <form className='contact-form top-border'>
+          <label className='form-input' id='name'><strong>Name:</strong>
             <input id='name' onChange={this.handleName} value={this.state.name} />
           </label>
-          <label id='email'>Email:
-            <input id='localPart' onChange={this.handleEmail} value={this.state.email.localPart}/>@
-            <input id='company' onChange={this.handleEmail} value={this.state.email.company}/>.
-            <input id='organization' onChange={this.handleEmail} value={this.state.email.organization}/>
+          <label className='form-input' id='email'><strong>Email:</strong>
+            <div className='email-inputs'>
+              <input id='localPart' onChange={this.handleEmail} value={this.state.email.localPart}/><strong>@</strong>
+              <input id='company' onChange={this.handleEmail} value={this.state.email.company}/><strong>.</strong>
+              <input id='organization' onChange={this.handleEmail} value={this.state.email.organization}/>
+            </div>
           </label>
         </form>
       </div>
