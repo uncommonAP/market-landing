@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
 import { Switch, Route, NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { validateInputPopulated } from './actions/trackContactForm'
 
 import SurveyForm from '../survey/SurveyForm'
 
-class ContactUs extends Component {
+const mapStateToProps = state => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    validateInputPopulated: (inputId, value) => dispatch(validateInputPopulated(inputId, value))
+  }
+}
+
+class ContactUsContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,17 +31,12 @@ class ContactUs extends Component {
 
   handleName(event) {
     this.setState({ name: event.target.value })
+    this.props.validateInputPopulated(event.target.id, event.target.value)
   }
 
   handleEmail(event) {
     let nextState = Object.assign({}, this.state.email, {[event.target.id]: event.target.value})
     this.setState({ email: nextState })
-  }
-
-  checkFormComplete() {
-    if (this.state.name !== '' && this.emailCompletion()) {
-
-    }
   }
 
   render() {
@@ -52,5 +61,7 @@ class ContactUs extends Component {
     )
   }
 }
+
+const ContactUs = connect(mapStateToProps, mapDispatchToProps)(ContactUsContainer)
 
 export default ContactUs

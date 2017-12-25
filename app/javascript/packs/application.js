@@ -8,6 +8,7 @@ import LandingPage from '../react/LandingPage'
 import currentQuestion from '../react/survey/reducers/currentQuestion'
 import answers from '../react/survey/reducers/answers'
 import survey from '../react/survey/reducers/survey'
+import contactForm from '../react/contact/reducers/contactForm'
 
 const middlewares = [thunkMiddleware]
 
@@ -15,7 +16,8 @@ const store = createStore(
   combineReducers({
     currentQuestion,
     answers,
-    survey
+    survey,
+    contactForm
   }),
   applyMiddleware(...middlewares)
 )
