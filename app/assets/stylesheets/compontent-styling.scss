@@ -27,3 +27,35 @@
   flex-direction: column;
   margin-bottom: 3em;
 }
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin: 3px;
+}
+
+#localPart {
+  width: 25em;
+}
+
+#company {
+  width: 15em;
+}
+
+#organization {
+  width: 5em;
+}
+
+.top-border {
+  border-top-style: ridge;
+  border-top-width: 5px;
+}

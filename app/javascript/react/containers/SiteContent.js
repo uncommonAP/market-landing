@@ -6,7 +6,7 @@ import About from '../components/About'
 import Mission from '../components/Mission'
 import Members from '../components/Members'
 import SurveyForm from '../survey/SurveyForm'
-import ContactUs from '../components/ContactUs'
+import ContactUs from '../contact/ContactUs'
 import SurveyPlug from '../components/SurveyPlug'
 
 class SiteContent extends Component {
@@ -25,7 +25,10 @@ class SiteContent extends Component {
             <Route strict path='/members/' component={Members} />
             <Route strict path='/survey/' component={SurveyForm} />
             <Route strict path='/contact-us/' component={ContactUs} />
-            <SurveyPlug/>
+            <div>
+              <h1>Home</h1>
+              <SurveyPlug/>
+            </div>
           </Switch>
         </div>
       </div>
