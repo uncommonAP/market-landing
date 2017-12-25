@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getQuestions, setCurrentQuestion } from './actions/getQuestions'
 import { postAnswer } from './actions/answerQuestion'
 import { NavLink } from 'react-router-dom'
+import RadioButtons from './components/RadioButtons'
 
 const mapStateToProps = state => {
   return {
@@ -64,15 +65,6 @@ class SurveyQuestionsContainer extends Component {
   }
 
   render() {
-    let surveyFormButtons = Object.keys(this.state.radioOptions).map(value => {
-      return(
-        <label id={value} key={`radio-${value}`}>
-          <input type='radio' value={value} onClick={this.handleSelect} checked={this.state.selectedValue === value}/>
-          {this.state.radioOptions[value]}
-        </label>
-      )
-    })
-
     let naviButton
     if (this.props.lastQuestion) {
       naviButton = <NavLink to='/contact-us/'><button>Finish</button></NavLink>
@@ -83,10 +75,8 @@ class SurveyQuestionsContainer extends Component {
     return(
       <div className='survey'>
         {this.state.errors}<br/>
-        {this.props.currentQuestion.question_body}
-        <form>
-          {surveyFormButtons}
-        </form>
+        <div className='question'>{this.props.currentQuestion.question_body}</div>
+        <RadioButtons radioOptions={this.state.radioOptions} handleSelect={this.handleSelect} selectedValue={this.state.selectedValue}/>
         {naviButton}<hr/>
         <div>
           <strong>Questions Remaining:</strong> {this.props.unansweredQuestions.length + 1}<br/>
