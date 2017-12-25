@@ -6,7 +6,7 @@ import About from '../components/About'
 import Mission from '../components/Mission'
 import Members from '../components/Members'
 import SurveyForm from '../survey/SurveyForm'
-import ContactUs from '../components/ContactUs'
+import ContactUs from '../contact/ContactUs'
 import SurveyPlug from '../components/SurveyPlug'
 
 class SiteContent extends Component {
