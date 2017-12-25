@@ -6,14 +6,23 @@ h1 {
   text-align: center;
 }
 
+.background {
+  background: linear-gradient(rgba(234, 255, 225, 0.9), rgba(234, 255, 225, 0.4)), url("africa-laylines.jpg");
+  background-size: cover, cover;
+  background-repeat: no-repeat;
+  margin-top: 1em;
+  padding: 3em;
+  border-radius: 10px;
+  filter: saturate(3);
+}
+
 .navbar {
-  background: url("africa-laylines.jpg"), linear-gradient(165deg, #BF9FA7 15%, #FFA506 23%, #0054EA 40%, #00003C 60%);
-  background-repeat: no-repeat, no-repeat;
-  background-size: 300px, cover;
+  background: linear-gradient(45deg, #0054EA 40%, #00003C 60%);
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  filter: saturate(3);
 }
 
 .links {

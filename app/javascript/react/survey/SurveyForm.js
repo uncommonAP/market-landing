@@ -63,16 +63,16 @@ class SurveyFormContainer extends Component {
           <div className='survey'>
             <h1>Thank you for choosing to take our survey!</h1>
             <hr />
-            <div>
+            <div className='countryGroup'>
               <strong>Please Select Your Country: </strong>
               <CountryDropdown id='country'
                 defaultOptionLabel='Your Country'
                 value={this.state.country}
                 onChange={this.handleCountry} /><br/>
             </div>
-            <div>
+            <div className='regionGroup'>
               <strong>Please Select Your Region: </strong>
-              <RegionDropdown  id='region'
+              <RegionDropdown  className='region' id='region'
                 defaultOptionLabel='Your Region'
                 disableWhenEmpty={true}
                 country={this.state.country}
