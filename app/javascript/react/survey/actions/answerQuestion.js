@@ -1,5 +1,14 @@
 export const SAVE_ANSWER = 'SAVE_ANSWER'
 export const SAVE_ANSWER_SUCCESS = 'SAVE_ANSWER_SUCCESS'
+export const CREATE_ANSWER_PAYLOAD = 'CREATE_ANSWER_PAYLOAD'
+
+
+let createAnswerPayload = payload => {
+  return {
+    type: CREATE_ANSWER_PAYLOAD,
+    payload
+  }
+}
 
 let saveAnswer = () => {
   return {
@@ -13,6 +22,11 @@ let saveAnswerSuccess = (question, answer) => {
     type: SAVE_ANSWER_SUCCESS,
     answerObject
   }
+}
+
+let constructAnswerPayload = (surveyId, question, content) => dispatch => {
+  let payload = { survey_id: surveyId, question_id: question.id, answer: content }
+  dispatch(createAnswerPayload(payload))
 }
 
 let postAnswer = (question, answer) => dispatch => {
