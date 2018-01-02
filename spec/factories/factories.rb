@@ -4,6 +4,10 @@ FactoryBot.define do
     email Faker::Internet.email
   end
 
+  trait :active do
+    active true
+  end
+
   factory :question do
     question_body Faker::Lorem.sentence(5)
 
