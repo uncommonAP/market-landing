@@ -7,10 +7,10 @@ const SurveyPlug = props => {
       <h2>Please take our survey!</h2>
       <p>
         We are currently in the process of gathering data to aid
-        in construction and vision reaization.
+        in construction and vision realization.
       </p>
       <p>
-        Your willingness to take 2 minutes out of your time to helps us hone in on
+        Your willingness to take 2 minutes out of your time to help us hone in on
         what's missing by way of community connectedness will be greatly appreciated!
       </p>
       <NavLink to='/survey/'><button>Start Survey</button></NavLink>
