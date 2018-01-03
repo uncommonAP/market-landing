@@ -76,10 +76,10 @@ test:
 # You can use this database configuration with:
 #
 #   production:
-#     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
   <<: *default
   database: connect-africa-io_production
   username: connect-africa-io
   password: <%= ENV['CONNECT-AFRICA-IO_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

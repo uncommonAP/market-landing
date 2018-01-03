@@ -14,7 +14,6 @@ RSpec.describe Answer, type: :model do
   describe 'associations' do
     it "belongs to a question" do
       expect(answer).to belong_to(:question)
-      expect(answer.question).to eq(question)
     end
 
     it "belongs to a survey" do
