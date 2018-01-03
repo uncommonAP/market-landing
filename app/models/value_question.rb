@@ -1,0 +1,2 @@
+class ValueQuestion < Question
+end

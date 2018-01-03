@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  let!(:question) { FactoryBot.create(:question) }
+  let!(:question) { FactoryBot.create(:question, :active) }
   let!(:survey) { FactoryBot.create(:survey)}
   let!(:answers) { create_list(:answer, 4, question_id: question.id, survey_id: survey.id) }
 

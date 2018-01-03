@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::QuestionsController, type: :controller do
-  let!(:questions) { create_list(:question_with_answers, 10)}
+  let!(:questions) { create_list(:question_with_answers, 10, :active) }
 
   describe 'questions#index' do
     it "returns a successful response" do
