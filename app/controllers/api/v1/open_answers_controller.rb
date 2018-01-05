@@ -1,8 +1,8 @@
-class Api::V1::AnswersController < ApplicationController
+class Api::V1::OpenAnswersController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
 
   def create
-    answer = Answer.new(answer_params)
+    answer = OpenAnswer.new(answer_params)
     if answer.save
       render json: {answer: answer}
     end
@@ -11,6 +11,6 @@ class Api::V1::AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:question_id, :importance_value, :survey_id)
+    params.require(:open_answer).permit(:question_id, :answer, :survey_id)
   end
 end
