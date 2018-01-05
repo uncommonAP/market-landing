@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contacts, only: [:index, :create]
       resources :questions, only: [:index]
-      resources :answers, only: [:create]
+      resources :open_answers, only: [:create]
       resources :surveys, only: [:create]
     end
   end
