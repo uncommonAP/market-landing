@@ -1,14 +1,5 @@
 export const SAVE_ANSWER = 'SAVE_ANSWER'
 export const SAVE_ANSWER_SUCCESS = 'SAVE_ANSWER_SUCCESS'
-export const CREATE_ANSWER_PAYLOAD = 'CREATE_ANSWER_PAYLOAD'
-
-
-let createAnswerPayload = payload => {
-  return {
-    type: CREATE_ANSWER_PAYLOAD,
-    payload
-  }
-}
 
 let saveAnswer = () => {
   return {
@@ -24,14 +15,9 @@ let saveAnswerSuccess = (question, answer) => {
   }
 }
 
-let constructAnswerPayload = (surveyId, question, content) => dispatch => {
-  let payload = { survey_id: surveyId, question_id: question.id, answer: content }
-  dispatch(createAnswerPayload(payload))
-}
-
 let postAnswer = (question, answer) => dispatch => {
   dispatch(saveAnswer())
-  return fetch('/api/v1/answers.json', {
+  return fetch('/api/v1/open_answers.json', {
     method: 'POST',
     body: JSON.stringify(answer),
     credentials: "same-origin",
