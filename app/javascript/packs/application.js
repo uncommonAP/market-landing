@@ -9,7 +9,6 @@ import currentQuestion from '../react/survey/reducers/currentQuestion'
 import answers from '../react/survey/reducers/answers'
 import survey from '../react/survey/reducers/survey'
 import contactInputs from '../react/contact/reducers/contactInputs'
-import contactForm from '../react/contact/reducers/contactForm'
 
 const middlewares = [thunkMiddleware]
 
@@ -18,7 +17,6 @@ const store = createStore(
     currentQuestion,
     answers,
     survey,
-    contactForm,
     contactInputs
   }),
   applyMiddleware(...middlewares)
