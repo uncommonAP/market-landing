@@ -3,6 +3,6 @@ class Api::V1::QuestionsController < ApplicationController
 
   def index
     questions = Question.active
-    render json: {questions: questions }
+    render json: questions, root: "questions"
   end
 end

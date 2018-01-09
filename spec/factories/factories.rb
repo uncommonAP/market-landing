@@ -15,7 +15,7 @@ FactoryBot.define do
       after(:create) do |question|
         survey = create(:survey)
         15.times do
-          create(:answer, question: question, survey_id: survey.id)
+          create(:open_answer, question: question, survey_id: survey.id)
         end
       end
     end
@@ -27,7 +27,7 @@ FactoryBot.define do
   end
 
 
-  factory :answer do
-    importance_value Random.rand(0..5)
+  factory :open_answer do
+     answer Random.rand(0..5)
   end
 end

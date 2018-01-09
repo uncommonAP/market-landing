@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar'
 import SurveyForm from '../survey/SurveyForm'
 import SurveyPlug from '../components/SurveyPlug'
 import LandingContent from '../components/LandingContent'
+import ContactUs from '../contact/ContactUs'
 
 class SiteContent extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class SiteContent extends Component {
             <Route strict path='/survey/' component={SurveyForm} />
             <SurveyPlug/>
           </Switch>
+          <ContactUs />
         </div>
       </div>
     )

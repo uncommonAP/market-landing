@@ -1,5 +1,5 @@
 class Survey < ApplicationRecord
   validates_presence_of :country, :region
-  has_many :answers
-  has_many :questions, through: :answers
+  has_many :open_answers
+  has_many :questions, through: :open_answers
 end
