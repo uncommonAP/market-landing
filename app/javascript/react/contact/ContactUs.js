@@ -1,64 +1,76 @@
 import React, { Component } from 'react'
 import { Switch, Route, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { validateInputPopulated } from './actions/trackContactForm'
+import ValidationLayer from 'react-validation-layer'
+import { setContactValue, formComplete } from './actions/setContactValue'
 
 import SurveyForm from '../survey/SurveyForm'
 
 const mapStateToProps = state => {
   return {
-
+    name: state.contactInputs.name,
+    email: state.contactInputs.email
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    validateInputPopulated: (inputId, value) => dispatch(validateInputPopulated(inputId, value))
+    setContactValue: (id, value) => { dispatch(setContactValue(id, value))}
   }
 }
 
 class ContactUsContainer extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      name: '',
-      email: { localPart: '', company: '', organization: '' },
-      formComplete: false
-    }
-    this.handleName = this.handleName.bind(this)
-    this.handleEmail = this.handleEmail.bind(this)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleName(event) {
-    this.setState({ name: event.target.value })
-    this.props.validateInputPopulated(event.target.id, event.target.value)
+  handleInput(event) {
+    this.props.setContactValue(event.fieldId, event.value)
   }
 
-  handleEmail(event) {
-    let nextState = Object.assign({}, this.state.email, {[event.target.id]: event.target.value})
-    this.setState({ email: nextState })
+  handleSubmit(event) {
+
   }
 
   render() {
-    let submitButton
-    if (this.state.formComplete) {
-      submitButton = <button>Submit</button>
-    }
     return(
       <div>
         <h1>Contact Us</h1>
-        <form className='contact-form top-border'>
-          <label className='form-input' id='name'><strong>Name:</strong>
-            <input id='name' onChange={this.handleName} value={this.state.name} />
-          </label>
-          <label className='form-input' id='email'><strong>Email:</strong>
-            <div className='email-inputs'>
-              <input id='localPart' onChange={this.handleEmail} value={this.state.email.localPart}/><strong>@</strong>
-              <input id='company' onChange={this.handleEmail} value={this.state.email.company}/><strong>.</strong>
-              <input id='organization' onChange={this.handleEmail} value={this.state.email.organization}/>
-            </div>
-          </label>
-        </form>
+        <ValidationLayer
+          strategy="onFirstChange"
+          data={{
+            name: this.props.name,
+            email: this.props.email
+          }}
+          fields={{
+            name: true,
+            email: { validate: email => !!email }
+          }}
+          handlers={{
+            onChange: this.handleInput,
+            onSubmit: this.handleSubmit
+          }}
+          >
+            {layer => (
+              <form onSubmit={layer.handleSubmit}>
+                <label className='form-input' id='name'><strong>Name:</strong>
+                <input type='text' id='name' {...layer.getPropsFor('name')} />
+              </label>
+              <label className='form-input' id='email'><strong>Email:</strong>
+              <input type='text' id='email' {...layer.getPropsFor('email')} />
+              <div className={layer.getStatusFor('email')} >
+                {layer.getMessageFor('email')}
+              </div>
+            </label>
+
+            <button {...layer.getSubmitButtonProps()}>
+              Submit
+            </button>
+          </form>
+        )}
+      </ValidationLayer>
       </div>
     )
   }
