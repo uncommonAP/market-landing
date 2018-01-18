@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102013348) do
+ActiveRecord::Schema.define(version: 20180118160854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "answers", force: :cascade do |t|
     t.bigint "question_id"
@@ -47,6 +48,12 @@ ActiveRecord::Schema.define(version: 20180102013348) do
     t.string "question_body", null: false
     t.boolean "active", default: false
     t.string "type"
+    t.hstore "answer_metric", default: {}, null: false
+    t.boolean "follow_up", default: false, null: false
+    t.integer "follow_up_for_id"
+    t.string "answer_format", default: "radio", null: false
+    t.boolean "other", default: false, null: false
+    t.integer "follow_up_trigger"
   end
 
   create_table "surveys", force: :cascade do |t|

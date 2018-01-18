@@ -16,15 +16,18 @@ class SiteContent extends Component {
     return(
       <div>
         <NavBar/>
-        <div className='background emphasize-inset'>
-          <div>
-            <h1>Catchy Headline</h1>
+        <h1>Catchy Headline</h1>
+        <div className='page'>
+          <div className='content'>
             <LandingContent />
+            <div className='parallax p-one'></div>
           </div>
-          <Switch>
-            <Route strict path='/survey/' component={SurveyForm} />
-            <SurveyPlug/>
-          </Switch>
+          <div className='background emphasize-inset'>
+            <Switch>
+              <Route strict path='/survey/' component={SurveyForm} />
+              <SurveyPlug/>
+            </Switch>
+          </div>
           <ContactUs />
         </div>
       </div>
