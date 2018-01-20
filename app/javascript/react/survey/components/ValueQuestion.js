@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setValue, clearValue } from '../actions/setValue'
+import { getContentQuestions, getFollowUpQuestions, setActiveType } from '../actions/getQuestions'
 
 const mapStateToProps = state => {
   return {
-    radioValue: state.currentQuestion.radioValue
+    radioValue: state.currentQuestion.radioValue,
+    activeType: state.currentQuestion.activeType
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     setValue: (type, value) => { dispatch(setValue(type, value)) },
+    getContentQuestions: (type) => { dispatch(getContentQuestions(type)) },
+    getFollowUpQuestions: (sourceQuestionId) => { dispatch(getFollowUpQuestions(sourceQuestionId)) },
+    setActiveType: (activeType) => { dispatch(setActiveType(activeType)) },
     clearValue: (type) => { dispatch(clearValue(type)) }
   }
 }
@@ -25,8 +30,20 @@ class ValueQuestionContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidUpdate() {
+    if (this.props.questionsLength === 0) {
+      this.props.setActiveType(this.props.activeType)
+    }
+  }
+
   handleSelect(event) {
     this.props.setValue(event.target.type, event.target.value)
+    if (this.props.question.direction) {
+      this.props.getContentQuestions(this.props.question.direction[event.target.value])
+    }
+    if (this.props.question.follow_up && event.target.value == this.props.question.follow_up_trigger) {
+      this.props.getFollowUpQuestions(this.props.question.id, this.props.activeType)
+    }
   }
 
   handleSubmit(event) {
@@ -42,7 +59,7 @@ class ValueQuestionContainer extends Component {
   }
 
   render() {
-    let radioOptions = { 0: 'No Opinion', 1: 'Not Important', 2: 'Little Importance', 3: 'Moderate Importance', 4: 'Important', 5: 'Extremely Important'}
+    let radioOptions = this.props.question.answer_metric
 
     let surveyFormButtons = Object.keys(radioOptions).map(value => {
       return(

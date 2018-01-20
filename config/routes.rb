@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'questions/demographic_questions'
       get 'questions/consumer_questions'
       get 'questions/entrepreneur_questions'
+      get 'questions/general_population_questions'
       resources :open_answers, only: [:create]
       resources :surveys, only: [:create]
     end

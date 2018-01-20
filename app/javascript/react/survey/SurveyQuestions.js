@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getQuestions, setCurrentQuestion } from './actions/getQuestions'
+import { getDemographicQuestions, setCurrentQuestion, getContentQuestions } from './actions/getQuestions'
 import { setValue, clearValue } from './actions/setValue'
 import { postAnswer } from './actions/answerQuestion'
 import { NavLink } from 'react-router-dom'
@@ -10,18 +10,23 @@ import OpenEnded from './components/OpenEnded'
 const mapStateToProps = state => {
   return {
     currentQuestion: state.currentQuestion.currentQuestion,
-    questionsPopulated: state.currentQuestion.questionsPopulated,
-    answeredQuestions: state.answers.answeredQuestions.length,
-    unansweredQuestions: state.currentQuestion.unansweredQuestions,
+    demographicQuestions: state.currentQuestion.demographicQuestions,
+    contentQuestions: state.currentQuestion.contentQuestions,
+    followUpQuestions: state.currentQuestion.followUpQuestions,
+    activeType: state.currentQuestion.activeType,
+    previousActiveType: state.currentQuestion.previousActiveType,
     currentSurveyId: state.survey.currentSurveyId,
-    answerType: state.currentQuestion.answerType
+    surveyComplete: state.currentQuestion.surveyComplete,
+    fetchedQuestionType: state.currentQuestion.fetchedQuestionType,
+    lastQuestion: state.currentQuestion.lastQuestion
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getQuestions: () => { dispatch(getQuestions()) },
-    setCurrentQuestion: (questions) => { dispatch(setCurrentQuestion(questions)) },
+    getDemographicQuestions: () => { dispatch(getDemographicQuestions()) },
+    getContentQuestions: (type) => { dispatch(getContentQuestions(type)) },
+    setCurrentQuestion: (activeType, questions) => { dispatch(setCurrentQuestion(activeType, questions)) },
     postAnswer: (question, answer) => { dispatch(postAnswer(question, answer)) }
   }
 }
@@ -34,33 +39,30 @@ class SurveyQuestionsContainer extends Component {
   }
 
   componentWillMount() {
-    this.props.getQuestions()
+    this.props.getDemographicQuestions()
     if (!this.props.currentSurveyId) {
       this.props.history.push('/survey/')
     }
   }
 
   componentDidUpdate() {
-    if (this.props.currentQuestion.length > 0) {
-      this.props.getAnswerType(this.props.currentQuestion.type)
+    if (this.props.lastQuestion && this.props.fetchedQuestionType !== 'general_population' && this.props.contentQuestions.length === 0) {
+      this.props.getContentQuestions('general_population')
+    }
+    if (this.props.surveyComplete) {
+      this.props.history.push('/contact/')
     }
   }
 
   answerQuestion(payload) {
     this.props.postAnswer(this.props.currentQuestion, payload)
-    this.props.setCurrentQuestion(this.props.unansweredQuestions)
+    this.props.setCurrentQuestion(this.props.activeType, this.props[`${this.props.activeType}Questions`])
   }
 
   render() {
     if (Object.keys(this.props.currentQuestion).length > 0) {
-      const formType = {
-        'OpenEnded': OpenEnded,
-        'ValueQuestion': ValueQuestion
-      }
-      const QuestionForm = formType[this.props.currentQuestion.type]
-
       return(
-        <QuestionForm question={this.props.currentQuestion} surveyId={this.props.currentSurveyId} answerQuestion={this.answerQuestion}/>
+        <ValueQuestion question={this.props.currentQuestion} surveyId={this.props.currentSurveyId} answerQuestion={this.answerQuestion} questionsLength={this.props[`${this.props.activeType}Questions`].length}/>
       )
     } else {
       return(<div>loading...</div>)
