@@ -58,3 +58,12 @@ input {
   flex-direction: column;
   align-items: center;
 }
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+}
+
+.visible {
+  visibility: visible;
+}

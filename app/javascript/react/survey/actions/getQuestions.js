@@ -131,7 +131,6 @@ let setCurrentQuestion = (activeType, questions) => dispatch => {
     dispatch(setQuestionAsCurrent(currentQuestion))
   }
   if (questions.length === 1) {
-    debugger
     dispatch(lastQuestion())
   } else if (questions.length > 1) {
     dispatch(notLast())

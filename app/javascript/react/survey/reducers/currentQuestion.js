@@ -11,7 +11,7 @@ import {
   SURVEY_QUESTIONS_COMPLETE,
   NOT_LAST
 } from '../actions/getQuestions'
-import { SET_RADIO_VALUE, SET_TEXT_VALUE, SET_ANSWER_TYPE } from '../actions/setValue'
+
 
 let initialState = {
   demographicQuestions: [],
@@ -23,8 +23,6 @@ let initialState = {
   surveyComplete: false,
   activeType: 'demographic',
   previousActiveType: null,
-  radioValue: null,
-  textValue: '',
   fetchedQuestionType: ''
 }
 
@@ -68,10 +66,6 @@ const currentQuestion = (state = initialState, action) => {
       return Object.assign({}, state, { activeType: action.activeType })
     case SURVEY_QUESTIONS_COMPLETE:
       return Object.assign({}, state, { surveyComplete: true })
-    case SET_RADIO_VALUE:
-      return Object.assign({}, state, { radioValue: action.value })
-    case SET_TEXT_VALUE:
-      return Object.assign({}, state, { textValue: action.value })
     default:
       return state
   }

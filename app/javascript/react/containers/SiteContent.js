@@ -12,6 +12,10 @@ class SiteContent extends Component {
     super(props)
   }
 
+  componentDidMount() {
+    alert("refactor activeType out of lastQuestion, 'other' answer logic")
+  }
+
   render() {
     return(
       <div>
@@ -25,10 +29,10 @@ class SiteContent extends Component {
           <div className='background emphasize-inset'>
             <Switch>
               <Route strict path='/survey/' component={SurveyForm} />
+              <Route strict path='/contact/' component={ContactUs} />
               <SurveyPlug/>
             </Switch>
           </div>
-          <ContactUs />
         </div>
       </div>
     )

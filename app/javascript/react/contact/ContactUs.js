@@ -9,7 +9,8 @@ import SurveyForm from '../survey/SurveyForm'
 const mapStateToProps = state => {
   return {
     name: state.contactInputs.name,
-    email: state.contactInputs.email
+    email: state.contactInputs.email,
+    currentSurveyId: state.survey.currentSurveyId
   }
 }
 
@@ -24,6 +25,12 @@ class ContactUsContainer extends Component {
     super(props)
     this.handleInput = this.handleInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillMount() {
+    if (!this.props.currentSurveyId) {
+      this.props.history.push('/')
+    }
   }
 
   handleInput(event) {
