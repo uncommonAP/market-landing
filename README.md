@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is what is available for so far. Built with a Rails back end, using React and React/Redux to handle client-side behavior. Database is PosgreSQL accessed through ActiveRecord (Rails).
 
-Things you may want to cover:
+Logic for the survey is contained in the folder named `app`. Client-side code is contained in `./app/javascript` folder.
 
-* Ruby version
+The database schema is contained in `db` folder.
 
-* System dependencies
+Required technologies: `yarn`, and `bundler` from homebrew.
 
-* Configuration
+Build to run with OSX development platform
 
-* Database creation
+To start in development, run the following commands in terminal:
+1) `bundle install`
+2) `rails db:create`
+3) `rails db:migrate`
+4) `rails db:seed`
+5) `yarn install`
+6) `rails s`
+7) `./bin/webpack-dev-server`
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Once the above commands are run, visit `localhost:3000` to view current application.

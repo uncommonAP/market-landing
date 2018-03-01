@@ -42,12 +42,10 @@ class OpenEndedContainer extends Component {
   render(){
     return(
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>{this.state.error}</div>
-          <label className='answer-input'>Please provide an answer below: <br/>
-            <input type='text' value={this.props.textValue} onChange={this.handleChange} />
-          </label>
-        </form>
+        <div>{this.state.error}</div>
+        <label className='answer-input'>Please provide an answer below: <br/>
+          <input type='text' value={this.props.textValue} onChange={this.handleChange} />
+        </label>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const SurveyPlug = props => {
   return(
-    <div className='survey plug top-border'>
+    <div className='survey plug'>
       <h2>Please take our survey!</h2>
       <p>
         We are currently in the process of gathering data to aid
