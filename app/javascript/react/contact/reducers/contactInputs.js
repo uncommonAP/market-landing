@@ -1,8 +1,9 @@
-import { SET_NAME_VALUE, SET_EMAIL_VALUE, SET_FORM_COMPLETE } from '../actions/setContactValue'
+import { SET_NAME_VALUE, SET_EMAIL_VALUE, SET_FORM_COMPLETE, SAVE_CONTACT_SUCCESS } from '../actions/setContactValue'
 
 let initialState = {
   name: '',
-  email: ''
+  email: '',
+  contactSaved: false
 }
 
 const contactInputs = (state = initialState, action) => {
@@ -11,6 +12,8 @@ const contactInputs = (state = initialState, action) => {
       return Object.assign({}, state, { name: action.value })
     case SET_EMAIL_VALUE:
       return Object.assign({}, state, { email: action.value })
+    case SAVE_CONTACT_SUCCESS:
+      return Object.assign({}, state, { contactSaved: true })
     default:
       return state
   }

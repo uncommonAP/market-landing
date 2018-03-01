@@ -1,17 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setValue, clearValue } from '../actions/setValue'
+import { setRadioValue, resetForm } from '../actions/setValue'
+import { getContentQuestions, getFollowUpQuestions, setActiveType } from '../actions/getQuestions'
+import { setOtherHidden, setOtherVisible } from '../actions/answerQuestion'
+import OpenEnded from './OpenEnded'
 
 const mapStateToProps = state => {
   return {
-    radioValue: state.currentQuestion.radioValue
+    radioValue: state.answers.radioValue,
+    activeType: state.currentQuestion.activeType,
+    otherClassName: state.answers.otherClassName,
+    otherPayload: state.answers.otherPayload,
+    textValue: state.answers.textValue
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setValue: (type, value) => { dispatch(setValue(type, value)) },
-    clearValue: (type) => { dispatch(clearValue(type)) }
+    setRadioValue: (value) => { dispatch(setRadioValue(value)) },
+    getContentQuestions: (type) => { dispatch(getContentQuestions(type)) },
+    getFollowUpQuestions: (sourceQuestionId) => { dispatch(getFollowUpQuestions(sourceQuestionId)) },
+    setActiveType: (activeType) => { dispatch(setActiveType(activeType)) },
+    resetForm: () => { dispatch(resetForm()) },
+    setOtherVisible: () => { dispatch(setOtherVisible()) },
+    setOtherHidden: () => { dispatch(setOtherHidden()) }
   }
 }
 
@@ -25,16 +37,38 @@ class ValueQuestionContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidUpdate() {
+    if (this.props.questionsLength === 0) {
+      this.props.setActiveType(this.props.activeType)
+    }
+  }
+
   handleSelect(event) {
-    this.props.setValue(event.target.type, event.target.value)
+    this.props.setRadioValue(event.target.value)
+    if (this.props.question.direction) {
+      this.props.getContentQuestions(this.props.question.direction[event.target.value])
+    }
+    if (this.props.question.follow_up && event.target.value == this.props.question.follow_up_trigger) {
+      this.props.getFollowUpQuestions(this.props.question.id, this.props.activeType)
+    }
+    if (this.props.question.other && event.target.value == this.props.question.other_trigger) {
+      this.props.setOtherVisible()
+    } else {
+      this.props.setOtherHidden()
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault()
     if (this.props.radioValue !== null) {
       let payload = { question_id: this.props.question.id, survey_id: this.props.surveyId, answer: this.props.radioValue }
-      this.props.answerQuestion(payload)
-      this.props.clearValue('radio')
+      if (this.props.otherPayload) {
+        let otherPayload = Object.assign({}, payload, { other_answer: {answer: this.props.textValue }})
+        this.props.answerQuestion(otherPayload)
+      } else {
+        this.props.answerQuestion(payload)
+      }
+      this.props.resetForm()
       this.setState({ error: '' })
     } else {
       this.setState({ error: 'Must select a value' })
@@ -42,7 +76,7 @@ class ValueQuestionContainer extends Component {
   }
 
   render() {
-    let radioOptions = { 0: 'No Opinion', 1: 'Not Important', 2: 'Little Importance', 3: 'Moderate Importance', 4: 'Important', 5: 'Extremely Important'}
+    let radioOptions = this.props.question.answer_metric
 
     let surveyFormButtons = Object.keys(radioOptions).map(value => {
       return(
@@ -58,6 +92,9 @@ class ValueQuestionContainer extends Component {
         <form className='radio-list' onSubmit={this.handleSubmit}>
           <div>{this.state.error}</div>
           {surveyFormButtons}<br/>
+          <div className={this.props.otherClassName}>
+            <OpenEnded />
+          </div>
           <input type='submit' value='Next'/>
         </form>
       </div>

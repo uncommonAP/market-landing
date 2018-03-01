@@ -2,20 +2,23 @@ import React, { Component } from 'react'
 import { Switch, Route, NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ValidationLayer from 'react-validation-layer'
-import { setContactValue, formComplete } from './actions/setContactValue'
+import { setContactValue, formComplete, saveContact } from './actions/setContactValue'
 
 import SurveyForm from '../survey/SurveyForm'
 
 const mapStateToProps = state => {
   return {
     name: state.contactInputs.name,
-    email: state.contactInputs.email
+    email: state.contactInputs.email,
+    currentSurveyId: state.survey.currentSurveyId,
+    contactSaved: state.contactInputs.contactSaved
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setContactValue: (id, value) => { dispatch(setContactValue(id, value))}
+    setContactValue: (id, value) => { dispatch(setContactValue(id, value))},
+    saveContact: (payload) => { dispatch(saveContact(payload))}
   }
 }
 
@@ -26,12 +29,25 @@ class ContactUsContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentWillMount() {
+    if (!this.props.currentSurveyId) {
+      this.props.history.push('/')
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.contactSaved) {
+      this.props.history.push('/complete/')
+    }
+  }
+
   handleInput(event) {
     this.props.setContactValue(event.fieldId, event.value)
   }
 
   handleSubmit(event) {
-
+    let payload = { name: this.props.name, email: this.props.email }
+    this.props.saveContact(payload)
   }
 
   render() {

@@ -43,19 +43,27 @@ input {
   margin: 3px;
 }
 
-#localPart {
-  width: 25em;
-}
-
-#company {
-  width: 15em;
-}
-
-#organization {
-  width: 5em;
-}
-
 .top-border {
   border-top-style: ridge;
   border-top-width: 5px;
+}
+
+.content {
+  width: 70%;
+  font-size: 20px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+}
+
+.visible {
+  visibility: visible;
 }

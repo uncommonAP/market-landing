@@ -1,6 +1,7 @@
 export const SET_RADIO_VALUE = 'SET_RADIO_VALUE'
 export const SET_TEXT_VALUE = 'SET_TEXT_VALUE'
 export const SET_ANSWER_TYPE = 'SET_ANSWER_TYPE'
+export const RESET_FORM = 'RESET_FORM'
 
 let setRadioValue = value => {
   return {
@@ -16,35 +17,10 @@ let setTextValue = value => {
   }
 }
 
-let setAnswerType = type => {
+let resetForm = () => {
   return {
-    type: SET_ANSWER_TYPE,
-    type
+    type: RESET_FORM
   }
 }
 
-let getAnswerType = questionType => dispatch => {
-  if (questionType === 'OpenEnded') {
-    dispatch(setAnswerType('text'))
-  } else if (questionType === 'ValueQuestion') {
-    dispatch(setAnswerType('radio'))
-  }
-}
-
-let setValue = (type, value) => dispatch => {
-  if (type === 'radio') {
-    dispatch(setRadioValue(value))
-  } else if (type === 'text') {
-    dispatch(setTextValue(value))
-  }
-}
-
-let clearValue = type => dispatch => {
-  if (type === 'radio') {
-    dispatch(setRadioValue(null))
-  } else if (type === 'text') {
-    dispatch(setTextValue(''))
-  }
-}
-
-export { setValue, clearValue }
+export { resetForm, setTextValue, setRadioValue }
